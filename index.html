@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DETTAGLIOS - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.0/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Sidebar -->
+    <div class="drawer lg:drawer-open">
+        <input id="drawer-toggle" type="checkbox" class="drawer-toggle" />
+        
+        <!-- Main Content -->
+        <div class="drawer-content flex flex-col">
+            <!-- Navbar -->
+            <div class="navbar bg-white shadow-sm border-b border-pink-100">
+                <div class="flex-none lg:hidden">
+                    <label for="drawer-toggle" class="btn btn-square btn-ghost">
+                        <i class="fas fa-bars text-lg"></i>
+                    </label>
+                </div>
+                
+                <div class="flex-1">
+                    <div class="form-control w-full max-w-md">
+                        <div class="input-group">
+                            <input type="text" placeholder="Buscar..." class="input input-bordered w-full bg-pink-50 border-pink-200 focus:border-pink-300">
+                            <button class="btn btn-square bg-pink-100 border-pink-200 hover:bg-pink-200">
+                                <i class="fas fa-search text-pink-600"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex-none gap-2">
+                    <div class="dropdown dropdown-end">
+                        <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                            <i class="fas fa-bell text-pink-600"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown dropdown-end">
+                        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                            <div class="w-10 rounded-full bg-pink-200">
+                                <i class="fas fa-user text-pink-600 mt-2"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dashboard Content -->
+            <div class="p-6">
+                <div class="mb-6">
+                    <h1 class="text-2xl font-bold text-pink-800">Dashboard</h1>
+                </div>
+                
+                <!-- Stats Cards Row 1 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+                    <!-- Total Earnings Card -->
+                    <div class="card-gradient-purple p-6 rounded-2xl relative overflow-hidden">
+                        <div class="absolute top-4 right-4">
+                            <i class="fas fa-ellipsis-h text-white opacity-70"></i>
+                        </div>
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-wallet text-2xl text-white opacity-90"></i>
+                        </div>
+                        <div class="text-3xl font-bold mb-2 text-white">$12,500.00</div>
+                        <div class="text-sm text-white opacity-80">Ganancias Totales</div>
+                    </div>
+                    
+                    <!-- Total Orders Card -->
+                    <div class="card-gradient-blue p-6 rounded-2xl relative overflow-hidden">
+                        <div class="absolute top-4 right-4">
+                            <div class="flex gap-2">
+                                <button class="btn btn-xs bg-white/20 border-none text-white hover:bg-white/30">Mes</button>
+                                <button class="btn btn-xs bg-white/30 border-none text-white hover:bg-white/40">Año</button>
+                            </div>
+                        </div>
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-shopping-bag text-2xl text-white opacity-90"></i>
+                        </div>
+                        <div class="text-3xl font-bold mb-2 text-white">245</div>
+                        <div class="text-sm text-white opacity-80">Pedidos Totales</div>
+                        <!-- Mini Chart -->
+                        <div class="mt-4">
+                            <canvas id="ordersChart" width="200" height="60"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Revenue Card -->
+                    <div class="card-gradient-pink p-6 rounded-2xl relative overflow-hidden">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-chart-bar text-2xl text-white opacity-90"></i>
+                        </div>
+                        <div class="text-3xl font-bold mb-2 text-white">$8,450</div>
+                        <div class="text-sm text-white opacity-80">Ingresos del Mes</div>
+                    </div>
+                </div>
+                
+                <!-- Stats Cards Row 2 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+                    <div class="card-gradient-yellow p-6 rounded-2xl text-gray-800">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-cube text-2xl text-yellow-600"></i>
+                        </div>
+                        <div class="text-3xl font-bold mb-2">156</div>
+                        <div class="text-sm opacity-80">Productos en Stock</div>
+                    </div>
+                </div>
+                
+                <!-- Charts Section -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Main Chart -->
+                    <div class="lg:col-span-2">
+                        <div class="card bg-white shadow-sm border border-pink-100">
+                            <div class="card-body">
+                                <div class="flex justify-between items-center mb-4">
+                                    <div>
+                                        <h3 class="text-lg font-semibold text-pink-800">Crecimiento Total</h3>
+                                        <p class="text-3xl font-bold text-gray-800">$5,847.00</p>
+                                    </div>
+                                    <div class="dropdown">
+                                        <div tabindex="0" role="button" class="btn btn-sm bg-pink-50 border-pink-200 text-pink-600">
+                                            Hoy <i class="fas fa-chevron-down ml-2"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="h-64">
+                                    <canvas id="mainChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Popular Products -->
+                    <div class="card bg-white shadow-sm border border-pink-100">
+                        <div class="card-body">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-lg font-semibold text-pink-800">Productos Populares</h3>
+                                <i class="fas fa-ellipsis-h text-gray-400"></i>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between p-3 bg-pink-50 rounded-lg">
+                                    <div>
+                                        <p class="font-medium text-gray-800">Ramo de Rosas</p>
+                                        <p class="text-sm text-green-600">15% Ganancia</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-gray-800">$450.00</p>
+                                        <div class="w-16 h-8">
+                                            <canvas class="mini-chart-1"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                                    <div>
+                                        <p class="font-medium text-gray-800">Globos Metálicos</p>
+                                        <p class="text-sm text-green-600">12% Ganancia</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-gray-800">$280.00</p>
+                                        <i class="fas fa-arrow-up text-green-500"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                                    <div>
+                                        <p class="font-medium text-gray-800">Arreglos Florales</p>
+                                        <p class="text-sm text-red-600">5% Pérdida</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-gray-800">$320.00</p>
+                                        <i class="fas fa-arrow-down text-red-500"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                                    <div>
+                                        <p class="font-medium text-gray-800">Centros de Mesa</p>
+                                        <p class="text-sm text-green-600">8% Ganancia</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-gray-800">$180.00</p>
+                                        <i class="fas fa-arrow-up text-green-500"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="drawer-side">
+            <label for="drawer-toggle" aria-label="close sidebar" class="drawer-overlay"></label>
+            <aside class="min-h-full w-64 bg-white border-r border-pink-100">
+                <!-- Logo -->
+                <div class="p-6 border-b border-pink-100">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-pink-200 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-flower text-pink-600"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-lg font-bold text-pink-800">DETTAGLIOS</h2>
+                            <p class="text-xs text-pink-600">Flores y Globos</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Navigation -->
+                <nav class="p-4">
+                    <div class="mb-4">
+                        <p class="text-xs font-semibold text-gray-500 uppercase mb-2">Principal</p>
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="#" class="flex items-center gap-3 p-3 rounded-lg bg-pink-100 text-pink-700 font-medium">
+                                    <i class="fas fa-chart-pie"></i>
+                                    Dashboard
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <p class="text-xs font-semibold text-gray-500 uppercase mb-2">Gestión</p>
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="#" class="flex items-center gap-3 p-3 rounded-lg text-gray-600 hover:bg-pink-50 hover:text-pink-700">
+                                    <i class="fas fa-box"></i>
+                                    Productos
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center gap-3 p-3 rounded-lg text-gray-600 hover:bg-pink-50 hover:text-pink-700">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    Pedidos
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center gap-3 p-3 rounded-lg text-gray-600 hover:bg-pink-50 hover:text-pink-700">
+                                    <i class="fas fa-users"></i>
+                                    Clientes
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <p class="text-xs font-semibold text-gray-500 uppercase mb-2">Herramientas</p>
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="#" class="flex items-center gap-3 p-3 rounded-lg text-gray-600 hover:bg-pink-50 hover:text-pink-700">
+                                    <i class="fas fa-palette"></i>
+                                    Colores
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center gap-3 p-3 rounded-lg text-gray-600 hover:bg-pink-50 hover:text-pink-700">
+                                    <i class="fas fa-icons"></i>
+                                    Iconos
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center gap-3 p-3 rounded-lg text-gray-600 hover:bg-pink-50 hover:text-pink-700">
+                                    <i class="fas fa-file-alt"></i>
+                                    Reportes
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                
+                <!-- Footer Card -->
+                <div class="p-4 mt-auto">
+                    <div class="bg-gradient-to-r from-pink-100 to-purple-100 p-4 rounded-lg">
+                        <h4 class="font-semibold text-gray-800 mb-1">Sistema DETTAGLIOS</h4>
+                        <p class="text-sm text-gray-600 mb-3">Gestión completa para tu negocio</p>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
